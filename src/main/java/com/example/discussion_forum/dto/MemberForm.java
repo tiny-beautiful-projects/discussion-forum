@@ -23,6 +23,7 @@ public class MemberForm {
 
     // DTO의 데이터를 entity로 만들기. Entity객체는 다른 파일에서 만들어야한다.
     public Member toEntity() {
+        
         return new Member(null, email, password);
     }
 
