@@ -1,0 +1,16 @@
+{{>layouts/header}}
+
+<form action="/api/coffee" method="post">
+    <div class="form-group">
+        <label for="name">커피 이름</label>
+        <input type="text" class="form-control" id="name" aria-describedby="coffee-name">
+    </div>
+    <div class="form-group">
+        <label for="price">price</label>
+        <input type="number" class="form-control" id="price">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{{>layouts/footer}}
