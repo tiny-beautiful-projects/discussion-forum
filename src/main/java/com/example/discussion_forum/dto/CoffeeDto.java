@@ -2,15 +2,14 @@ package com.example.discussion_forum.dto;
 
 
 import com.example.discussion_forum.entity.Coffee;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 
-
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class CoffeeDto {
     private Long id;
     private String name;

@@ -1,0 +1,26 @@
+{{>layouts/header}}
+
+<!--action : 브라우저에서 폼을 제출했을 때 그 데이터를 받아 처리할 서버의 컨트롤러 주소(Mapping 경로)를 적어주어야 합니다.-->
+
+<!--<form> 태그(화면 새로고침 방식)로는 @RestController와 @RequestBody를 사용하는 API 컨트롤러를 직접 호출할 수 없습니다.-->
+
+<!--HTML <form>의 제출 방식: 브라우저는 <form>이 제출되면 데이터를 폼 데이터(application/x-www-form-urlencoded) 형태로 변환해서 보냅니다.
+
+API 컨트롤러의 대기 방식 (@RequestBody): @RestController에 있는 @RequestBody는 "오직 JSON(application/json) 형태의 데이터만 받겠다"고 버티고 있습니다.
+이 둘은 언어가 달라서 대화가 통하지 않기 때문에, HTML 폼으로 요청을 보내면 API 컨트롤러가 요청을 거부하거나 아예 받지 못합니다
+
+-->
+<form action="/coffee/create" method="post">
+    <div class="form-group">
+        <label for="name">커피 이름</label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="coffee-name">
+    </div>
+    <div class="form-group">
+        <label for="price">price</label>
+        <input type="number" class="form-control" id="price" name="price">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{{>layouts/footer}}

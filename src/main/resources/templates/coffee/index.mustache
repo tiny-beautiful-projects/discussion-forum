@@ -2,7 +2,6 @@
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">#</th>
         <th scope="col">id</th>
         <th scope="col">name</th>
         <th scope="col">price</th>
@@ -15,9 +14,10 @@
         <td><a href="/coffee/{{id}}">{{name}}</a></td>
         <td>{{price}}</td>
     </tr>
-    </tbody>
     {{/coffeeList}}
+    </tbody>
+
 </table>
 
-<a href="/coffee/create">커피 만들러 가기</a>
+<a href="/coffee/new">커피 만들러 가기</a>
 {{>layouts/footer}}
