@@ -9,12 +9,14 @@
     </tr>
     </thead>
     <tbody>
+    {{#coffeeList}}
     <tr>
         <th>{{id}}</th>
         <td><a href="/coffee/{{id}}">{{name}}</a></td>
         <td>{{price}}</td>
     </tr>
     </tbody>
+    {{/coffeeList}}
 </table>
 
 <a href="/coffee/create">커피 만들러 가기</a>
