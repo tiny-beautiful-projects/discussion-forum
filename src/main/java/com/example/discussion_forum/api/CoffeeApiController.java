@@ -5,7 +5,6 @@ import com.example.discussion_forum.dto.CoffeeDto;
 import com.example.discussion_forum.entity.Coffee;
 import com.example.discussion_forum.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
