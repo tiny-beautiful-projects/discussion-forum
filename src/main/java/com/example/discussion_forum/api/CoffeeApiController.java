@@ -31,19 +31,19 @@ public class CoffeeApiController {
 
 
     @GetMapping("/api/coffee/{id}")
-    public Coffee getCoffee(@PathVariable Long id){
-        return coffeeService.detail(id);
+    public ResponseEntity<Coffee> getCoffee(@PathVariable Long id){
+         Coffee target =  coffeeService.detail(id);
+         if(target == null){
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         }
+         return ResponseEntity.status(HttpStatus.OK).body(target);
     }
 
-
-
-    // 생성 api/coffee (POST)
     @PostMapping("/api/coffee")
-    public Coffee create(@RequestBody CoffeeDto dto){
-        // 1. dto를 entity로 바꾸기
-        Coffee coffeeEntity = dto.toEntity();
-        // 2. entity를 save로 하기
-        return coffeeRepository.save(coffeeEntity);
+    public ResponseEntity<Coffee> create(@RequestBody CoffeeDto dto){
+        Coffee created = coffeeService.create(dto);
+        return (created !=null) ?  ResponseEntity.status(HttpStatus.OK).body(created)
+                : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 

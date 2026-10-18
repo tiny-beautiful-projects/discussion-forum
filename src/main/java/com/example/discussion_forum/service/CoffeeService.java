@@ -1,10 +1,13 @@
 package com.example.discussion_forum.service;
 
+import com.example.discussion_forum.dto.CoffeeDto;
 import com.example.discussion_forum.entity.Coffee;
 import com.example.discussion_forum.repository.CoffeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 @Service
@@ -17,6 +20,13 @@ public class CoffeeService {
     }
     public Coffee detail(Long id){
         return coffeeRepository.findById(id).orElse(null);
+    }
+    public Coffee create(CoffeeDto dto){
+        Coffee coffeeEntity = dto.toEntity();
+        if(coffeeEntity.getId() != null){
+            return null;
+        }
+        return coffeeRepository.save(coffeeEntity);
     }
 
 }
