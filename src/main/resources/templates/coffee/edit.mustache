@@ -10,6 +10,8 @@
             <label class="form-label">커피 가격</label>
             <input type="text" class="form-control" name="price" value="{{coffeeEdit.price}}">
         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/coffee/{{coffeeEdit.id}}">Back</a>
     </form>
 {{/coffeeEdit}}
 {{>layouts/footer}}

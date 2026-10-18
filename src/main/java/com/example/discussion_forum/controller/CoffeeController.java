@@ -80,7 +80,16 @@ public class CoffeeController {
     @PostMapping("/coffee/update")
     public String updateCoffee(CoffeeDto dto){
         System.out.println("dto ===>" + dto.toString());
-        return "";
+        // dto를 entity변화한다
+        Coffee coffeeEntity = dto.toEntity();
+
+        // db에서 해당 아이템을 가져오기
+        Coffee target = coffeeRepository.findById(coffeeEntity.getId()).orElse(null);
+        // patch를 한다
+        if(target != null){
+            coffeeRepository.save(coffeeEntity);
+        }
+        return "redirect:/coffee/" + coffeeEntity.getId();
     }
 
 
