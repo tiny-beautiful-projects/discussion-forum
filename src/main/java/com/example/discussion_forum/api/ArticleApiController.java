@@ -17,13 +17,13 @@ import java.util.List;
 @Slf4j
 @RestController
 public class ArticleApiController {
-//    @Autowired
-//    private ArticleRepository articleRepository;
-//    // GET
-//    @GetMapping("/api/articles")
-//    public List<Article> index(){
-//        return  articleRepository.findAll();
-//    }
+    @Autowired
+    private ArticleService articleService;
+
+    @GetMapping("/api/articles")
+    public List<Article> index(){
+        return  articleService.index();
+    }
 //
 //    // GET
 //    @GetMapping("/api/articles/{id}")
@@ -92,8 +92,7 @@ public class ArticleApiController {
 //        articleRepository.delete(target);
 //        return ResponseEntity.status(HttpStatus.OK).body(null);
 //    }
-    @Autowired
-    private ArticleService articleService;
+
 
 
 }
