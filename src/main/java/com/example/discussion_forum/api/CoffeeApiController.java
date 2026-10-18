@@ -6,9 +6,12 @@ import com.example.discussion_forum.entity.Coffee;
 import com.example.discussion_forum.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 
 @Slf4j
@@ -28,6 +31,10 @@ public class CoffeeApiController {
     }
 
     // 조회 /api/coffee (GET)
+    @GetMapping("api/coffee")
+    public ArrayList<Coffee> getCoffees(){
+        return coffeeRepository.findAll();
+    }
 
     // 상세 조회 /api/coffee/1 (GET)
 
