@@ -18,8 +18,16 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+    public Article show(Long id) {
+       return articleRepository.findById(id).orElse(null);
+    }
+
+
+
     public Article create(ArticleForm dto) { 
         Article article = dto.toEntity();
         return articleRepository.save(article);
     }
+
+
 }

@@ -27,14 +27,16 @@ public class ArticleApiController {
         return articleService.index();
     }
 
-    //
-//    // GET
-//    @GetMapping("/api/articles/{id}")
-//    public Article show(@PathVariable Long id){
-//        return articleRepository.findById(id).orElse(null);
-//    }
-//
-//    // POST
+
+    @GetMapping("/api/articles/{id}")
+    public ResponseEntity<Article> show(@PathVariable Long id){
+        Article article = articleService.show(id);
+        if(article == null){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(article);
+    }
+
     @PostMapping("/api/articles")
     public ResponseEntity<Article> create(@RequestBody ArticleForm dto) {
         Article created = articleService.create(dto);
