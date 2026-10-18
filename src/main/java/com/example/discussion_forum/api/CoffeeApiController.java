@@ -30,6 +30,13 @@ public class CoffeeApiController {
     }
 
 
+    @GetMapping("/api/coffee/{id}")
+    public Coffee getCoffee(@PathVariable Long id){
+        return coffeeService.detail(id);
+    }
+
+
+
     // 생성 api/coffee (POST)
     @PostMapping("/api/coffee")
     public Coffee create(@RequestBody CoffeeDto dto){
@@ -39,14 +46,6 @@ public class CoffeeApiController {
         return coffeeRepository.save(coffeeEntity);
     }
 
-
-    // 상세 조회 /api/coffee/1 (GET)
-    @GetMapping("/api/coffee/{id}")
-    public Coffee getCoffee(@PathVariable Long id){
-        // 1. 해당 커피를 db에서 찾아보기. 못 찾을 경우 null처리
-        // 2. 찾은 걸 뿌려주기
-        return coffeeRepository.findById(id).orElse(null);
-    }
 
     // 수정 /api/coffee/1 (PATCH)
     @PatchMapping("/api/coffee/{id}")

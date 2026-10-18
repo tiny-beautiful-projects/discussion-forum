@@ -15,4 +15,8 @@ public class CoffeeService {
     public ArrayList<Coffee> index() {
        return coffeeRepository.findAll();
     }
+    public Coffee detail(Long id){
+        return coffeeRepository.findById(id).orElse(null);
+    }
+
 }
