@@ -4,6 +4,7 @@ package com.example.discussion_forum.api;
 import com.example.discussion_forum.dto.CoffeeDto;
 import com.example.discussion_forum.entity.Coffee;
 import com.example.discussion_forum.repository.CoffeeRepository;
+import com.example.discussion_forum.service.CoffeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,15 @@ public class CoffeeApiController {
     @Autowired
     private CoffeeRepository coffeeRepository;
 
+    @Autowired
+    CoffeeService coffeeService;
+
+    @GetMapping("/api/coffee")
+    public ArrayList<Coffee> index(){
+        return coffeeService.index();
+    }
+
+
     // 생성 api/coffee (POST)
     @PostMapping("/api/coffee")
     public Coffee create(@RequestBody CoffeeDto dto){
@@ -29,11 +39,6 @@ public class CoffeeApiController {
         return coffeeRepository.save(coffeeEntity);
     }
 
-    // 조회 /api/coffee (GET)
-    @GetMapping("/api/coffee")
-    public ArrayList<Coffee> getCoffees(){
-        return coffeeRepository.findAll();
-    }
 
     // 상세 조회 /api/coffee/1 (GET)
     @GetMapping("/api/coffee/{id}")
