@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,15 @@ public class ArticleApiController {
         // 서비스를 통해 게시글 삭제
         Article deleted = articleService.delete(id);
         return (deleted !=null)? ResponseEntity.status(HttpStatus.NO_CONTENT).build(): ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    // transaction 테스팅을 위함
+    @Transactional
+    @PostMapping("/api/transaction-text")
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos) {
+        // 서비스 호출
+        List<Article> creatdList = articleService.createArticles(dtos);
+        return (creatdList != null) ? ResponseEntity.status(HttpStatus.OK).body(creatdList) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 
