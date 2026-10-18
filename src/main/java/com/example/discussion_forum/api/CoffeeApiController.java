@@ -6,10 +6,7 @@ import com.example.discussion_forum.entity.Coffee;
 import com.example.discussion_forum.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -37,6 +34,12 @@ public class CoffeeApiController {
     }
 
     // 상세 조회 /api/coffee/1 (GET)
+    @GetMapping("api/coffee/{id}")
+    public Coffee getCoffee(@PathVariable Long id){
+        // 1. 해당 커피를 db에서 찾아보기. 못 찾을 경우 null처리
+        // 2. 찾은 걸 뿌려주기
+        return coffeeRepository.findById(id).orElse(null);
+    }
 
     // 수정 /api/coffee/1 (PATCH)
 
