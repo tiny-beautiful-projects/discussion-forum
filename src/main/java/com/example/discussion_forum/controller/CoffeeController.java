@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CoffeeController {
     @Autowired
     private CoffeeRepository coffeeRepository;
 
+    // 브라우저가 GET /coffee 요청을 보냈을 때 이 메서드를 실행하라는 뜻
     @GetMapping("/coffee")
     public String index(Model model){
 
@@ -36,6 +38,7 @@ public class CoffeeController {
         return "/coffee/new";
     }
 
+    // 커피 생성
     @PostMapping("/coffee/create")
     public String createCoffee(CoffeeDto dto){
         log.info("coffee DTO ==> {}", dto);
@@ -45,4 +48,18 @@ public class CoffeeController {
         // 스프링의 redirect: 뒤에는 HTML 파일 경로(coffee/index)를 적는 것이 아니라, 컨트롤러의 @GetMapping 주소(url)를 적어야 합니다.
         return "redirect:/coffee";
     }
+
+    // 커피 상세 조회
+    @GetMapping("/coffee/{id}")
+    public String getDetailCoffee(@PathVariable Long id, Model model){
+        // id로 db에서 찾는다. 없으면 null 처리
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        //2. 가져온 db를 화면에 뿌리자!. 뿌리기 위해서는 모델에 등록해야 한다.
+        model.addAttribute("coffeeDetail", target);
+
+        // 뷰페이지 반환하기
+        return "/coffee/show";
+    }
+
+
 }
