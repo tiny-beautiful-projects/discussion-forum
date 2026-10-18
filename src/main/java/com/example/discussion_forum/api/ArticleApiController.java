@@ -19,12 +19,15 @@ import java.util.List;
 public class ArticleApiController {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @GetMapping("/api/articles")
-    public List<Article> index(){
-        return  articleService.index();
+    public List<Article> index() {
+        return articleService.index();
     }
-//
+
+    //
 //    // GET
 //    @GetMapping("/api/articles/{id}")
 //    public Article show(@PathVariable Long id){
@@ -32,11 +35,11 @@ public class ArticleApiController {
 //    }
 //
 //    // POST
-//    @PostMapping("/api/articles")
-//    public Article create(@RequestBody ArticleForm dto){
-//        Article article = dto.toEntity();
-//        return articleRepository.save(article);
-//    }
+    @PostMapping("/api/articles")
+    public ResponseEntity<Article> create(@RequestBody ArticleForm dto) {
+        Article created = articleService.create(dto);
+        return (created != null) ? ResponseEntity.status(HttpStatus.OK).body(created) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 //
 //    // PATCH
 //    @PatchMapping("/api/articles/{id}")
@@ -92,7 +95,6 @@ public class ArticleApiController {
 //        articleRepository.delete(target);
 //        return ResponseEntity.status(HttpStatus.OK).body(null);
 //    }
-
 
 
 }
