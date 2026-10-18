@@ -61,5 +61,27 @@ public class CoffeeController {
         return "/coffee/show";
     }
 
+    // 커피 수정
+    @GetMapping("/coffee/{id}/edit")
+    public String editCoffee(@PathVariable Long id, Model model){
+
+        // 수정할 데이터 가져오기
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        // 모델에 데이터 등록하기
+        if(target != null){
+            model.addAttribute("coffeeEdit", target);
+        }
+        // 3. 페이지 반환
+        return "/coffee/edit";
+    }
+
+    // 커피 수정 화면에서 수정하기 버튼을 누르면 일어나는 일
+
+    @PostMapping("/coffee/update")
+    public String updateCoffee(CoffeeDto dto){
+        System.out.println("dto ===>" + dto.toString());
+        return "";
+    }
+
 
 }

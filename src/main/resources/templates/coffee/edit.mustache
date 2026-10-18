@@ -1,0 +1,15 @@
+{{>layouts/header}}
+{{#coffeeEdit}}
+    <form action="/coffee/update" method="post" class="container">
+        <input name="id" type="hidden" value="{{id}}">
+        <div>
+            <label class="form-label">커피 이름</label>
+            <input type="text" class="form-control" name="name" value="{{coffeeEdit.name}}">
+        </div>
+        <div>
+            <label class="form-label">커피 가격</label>
+            <input type="text" class="form-control" name="price" value="{{coffeeEdit.price}}">
+        </div>
+    </form>
+{{/coffeeEdit}}
+{{>layouts/footer}}
