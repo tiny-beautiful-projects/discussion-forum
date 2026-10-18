@@ -13,7 +13,7 @@ import lombok.*;
 public class CoffeeDto {
     private Long id;
     private String name;
-    private int price;
+    private Integer price;
 
    public Coffee toEntity(){
        return new Coffee(id, name, price);
