@@ -44,5 +44,17 @@ public class ArticleService {
         return updated;
 
     }
+
+    public Article delete(Long id) {
+        // 대상 찾기
+        Article target = articleRepository.findById(id).orElse(null);
+        if(target == null){
+            return null;
+        }
+        // 대상 삭제하기
+        articleRepository.delete(target);
+        return target;
+
+    }
 }
 
