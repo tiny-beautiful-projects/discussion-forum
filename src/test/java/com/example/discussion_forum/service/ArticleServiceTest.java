@@ -1,5 +1,6 @@
 package com.example.discussion_forum.service;
 
+import com.example.discussion_forum.dto.ArticleForm;
 import com.example.discussion_forum.entity.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,25 @@ class ArticleServiceTest {
         Article expected  = null;
         // 실제 데이터
         Article article = articleService.show(id);
+        // 비교 및 검증
+        assertEquals(expected, article);
+    }
+
+    @Test
+    void create_success() {
+      // id가 random하게 만들어 지기
+
+    }
+    @Test
+    void create_fail() {
+        // 예상 데이터
+        Long id = 554L;
+        String title = "라라라라";
+        String content = "4444";
+        ArticleForm dto = new ArticleForm(id, title, content);
+        Article expected = null;
+        // 실제 데이터
+        Article article = articleService.create(dto);
         // 비교 및 검증
         assertEquals(expected, article);
     }
