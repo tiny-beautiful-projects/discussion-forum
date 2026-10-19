@@ -28,5 +28,14 @@ public class CoffeeService {
         }
         return coffeeRepository.save(coffeeEntity);
     }
+    public Coffee update(Long id, CoffeeDto dto){
+      Coffee coffeeEntity = dto.toEntity();
+      Coffee target = coffeeRepository.findById(id).orElse(null);
+      if(target == null || !id.equals(coffeeEntity.getId())){
+          return null;
+      }
+      target.patch(coffeeEntity);
+      return coffeeRepository.save(target);
+    }
 
 }

@@ -47,26 +47,13 @@ public class CoffeeApiController {
     }
 
 
-    // 수정 /api/coffee/1 (PATCH)
     @PatchMapping("/api/coffee/{id}")
     public ResponseEntity<Coffee> editCoffee(@PathVariable Long id, @RequestBody CoffeeDto dto){
-        log.info("수정할 DTO ====>>> " + dto.toString());
-        // dto를 entity로 변환!
-        Coffee targetEntity = dto.toEntity();
-        // 해당 커피를 db에서 찾아보기. 못 찾을 경우 null 처리
-        Coffee target = coffeeRepository.findById(id).orElse(null);
-        // 찾지 못한 경우에는 response error
-        if(target == null || !id.equals(targetEntity.getId())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        // 찾은경우에만 수정해주기
-        // 1. 클라이언트에서 받은 데잍러르 기존 데이터에 patch를 한다.
-        target.patch(targetEntity);
-        // 2. 기존 데이터를 save한다.
-        Coffee updated = coffeeRepository.save(target);
+          Coffee updated =  coffeeService.update(id, dto);
+          if(updated == null){
+              return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+          }
         return ResponseEntity.status(HttpStatus.OK).body(updated);
-
     };
 
     // 삭제 /api/coffee/1 (DELETE)
