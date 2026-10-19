@@ -5,6 +5,7 @@ import com.example.discussion_forum.entity.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,9 +55,9 @@ class ArticleServiceTest {
     }
 
     @Test
+    @Transactional  // 성공시 되돌리기. 안 그럼 index 테스트가 실패!
     void create_success() {
-      // id가 random하게 만들어 지기
-
+      // id가 random하게 만들어 지기떄문에 PASS
     }
     @Test
     void create_fail() {
