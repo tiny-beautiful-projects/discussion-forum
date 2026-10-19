@@ -6,6 +6,7 @@ import com.example.discussion_forum.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.http.HttpResponse;
@@ -39,6 +40,14 @@ public class CoffeeService {
       }
       target.patch(coffeeEntity);
       return coffeeRepository.save(target);
+    }
+
+    public Coffee delete(Long id){
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        if(target == null){
+            return null;
+        }
+        return target;
     }
 
 }

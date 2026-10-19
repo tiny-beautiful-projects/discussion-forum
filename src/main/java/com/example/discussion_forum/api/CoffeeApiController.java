@@ -56,24 +56,13 @@ public class CoffeeApiController {
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     };
 
-    // 삭제 /api/coffee/1 (DELETE)
     @DeleteMapping("/api/coffee/{id}")
     public ResponseEntity<Void> deleteCoffee(@PathVariable Long id){
-
-        // 1. 삭제할 id를 db에서 찾기
-        Coffee target = coffeeRepository.findById(id).orElse(null);
-        // 2. 없는 경우 404 에러 반환
-        if(target == null){
-            // 응답 본문 없이 반환
+        Coffee deleted = coffeeService.delete(id);
+        if(deleted == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-            // 응답 본문에 문자열을 넣어서 반환
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("커피를 찾을 수 없습니다.");
         }
-        // 3. 있는 경우에만 삭제!
-        coffeeRepository.delete(target);
-       return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
