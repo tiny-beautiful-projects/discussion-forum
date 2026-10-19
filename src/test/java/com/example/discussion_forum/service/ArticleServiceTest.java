@@ -30,4 +30,25 @@ class ArticleServiceTest {
         // 3. 비교 및 검증
         assertEquals(expected.toString(), articles.toString());
     }
+
+    @Test
+    void show_success() {
+      // 예상 데이터
+        Long id = 554L;
+        Article expected = new Article(id, "시간 예약", "1111");
+        // 실제 데이터
+        Article article = articleService.show(id);
+        // 비교 및 검증
+        assertEquals(expected.toString(), article.toString());
+    }
+    @Test
+    void show_fail() {
+        // 예상 데이터
+        Long id = -1L;
+        Article expected  = null;
+        // 실제 데이터
+        Article article = articleService.show(id);
+        // 비교 및 검증
+        assertEquals(expected, article);
+    }
 }
