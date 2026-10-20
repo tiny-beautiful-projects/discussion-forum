@@ -14,6 +14,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+
+// Service를 test할때 붙이는 annotation
 @SpringBootTest
 // 개발할 때는 개발용 DB를 사용하고 테스트할 때는 테스트용 DB를 사용하도록 선택하는 기능
 class ArticleServiceTest {
