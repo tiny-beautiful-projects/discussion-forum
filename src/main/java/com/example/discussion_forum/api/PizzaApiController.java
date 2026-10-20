@@ -1,0 +1,39 @@
+package com.example.discussion_forum.api;
+
+
+import com.example.discussion_forum.dto.PizzaDto;
+import com.example.discussion_forum.repository.PizzaRepository;
+import com.example.discussion_forum.service.PizzaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+// 클라이언트에게 DTO를 받고, Service를 호출한 뒤 결과를 응답해.
+@RestController
+public class PizzaApiController {
+    @Autowired
+    private PizzaRepository pizzaRepository;
+    @Autowired
+    private PizzaService pizzaService;
+    // 생성
+    @PostMapping("/api/pizza")
+    public ResponseEntity<PizzaDto> create(@RequestBody PizzaDto dto){
+        System.out.println("생성해용...." +  dto);
+        // service에 위임
+        PizzaDto created = pizzaService.create(dto);
+        // 결과 응답
+        return ResponseEntity.status(HttpStatus.OK).body(created);
+    }
+
+    // 리스트 조회
+
+    // 상세 조회
+
+    // 수정
+
+    // 삭제
+
+}
