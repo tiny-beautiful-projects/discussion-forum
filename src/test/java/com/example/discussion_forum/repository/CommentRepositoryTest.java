@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 // repository 테스트를 할때 사용하는 annotation
-
 @DataJpaTest
 // 기존 DB를 사용하려고 할떄 하는 설정
 @AutoConfigureTestDatabase(
@@ -56,7 +55,23 @@ class CommentRepositoryTest {
         assertEquals(expected2, comments2);
 
     }
+
     @Test
+    @DisplayName("특정 닉네임의 모든 댓글 조회")
     void findByNickname() {
+        // given
+        String nickname = "park";
+
+        // when
+        List<Comment> comments = commentRepository.findByNickname(nickname);
+
+        // then
+        assertEquals(1, comments.size());
+        assertEquals("park", comments.get(0).getNickname());
+        assertEquals(
+                "굿 윌 헌팅 정말 명작이죠! 인생 영화로 손꼽을 만합니다.",
+                comments.get(0).getBody()
+        );
     }
+
 }
