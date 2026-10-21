@@ -24,4 +24,4 @@ public class Pizza {
     @Column
     private Integer price;
 
-
+}

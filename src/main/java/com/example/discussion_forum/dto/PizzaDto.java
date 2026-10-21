@@ -20,16 +20,16 @@ public class PizzaDto {
     private Integer price;
 
     // Entity => Dto
-    public static PizzaDto createDto(Pizza pizza) {
-      PizzaDto dto = new PizzaDto();
-      dto.id = pizza.getId();
-      dto.name = pizza.getName();
-      dto.price = pizza.getPrice();
-      return dto;
+    public static PizzaDto toDto(Pizza pizza) {
+     return new PizzaDto(
+             pizza.getId(),
+             pizza.getName(),
+             pizza.getPrice()
+     );
     }
 
     // DTO => entity
     public Pizza toEntity() {
-        return new Pizza(id, name, price);
+        return new Pizza(null, name, price);
     }
 }
