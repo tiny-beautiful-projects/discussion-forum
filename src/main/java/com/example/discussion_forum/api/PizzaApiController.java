@@ -62,5 +62,13 @@ public class PizzaApiController {
     }
 
     // 삭제
+    @DeleteMapping("/api/pizza/{id}")
+    public ResponseEntity<PizzaDto> deletePizza(@PathVariable Long id){
+        // 서비스 위임
+        PizzaDto deleted = pizzaService.deletePizza(id);
+        // 결과 응답
+        return ResponseEntity.status(HttpStatus.OK).body(deleted);
+    }
+
 
 }

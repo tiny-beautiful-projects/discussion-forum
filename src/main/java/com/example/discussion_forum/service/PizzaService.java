@@ -28,8 +28,6 @@ public class PizzaService {
     public List<PizzaDto> getList() {
         // db에서 가져오기 (entity)
         List<Pizza> pizzas = pizzaRepository.findAll();
-        // entity를 dto 형태로 return
-        // return pizzas.stream().map(PizzaDto:: toDto).toList();
         return pizzas.stream().map(pizza -> PizzaDto.toDto(pizza)).toList();
     }
 
@@ -53,5 +51,16 @@ public class PizzaService {
         Pizza saved = pizzaRepository.save(pizza);
         log.info("저장된 피자!! ++" + saved);
         return PizzaDto.toDto(saved);
+    }
+
+    public PizzaDto deletePizza(Long id) {
+        // id를 db에서 찾기. 없으면 에러를 던져용
+        Pizza target = pizzaRepository.findById(id).orElse(null);
+        if(target == null){
+            return null;
+        }
+        // 삭제하기
+        pizzaRepository.delete(target);
+        return PizzaDto.toDto(target);
     }
 }
