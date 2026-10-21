@@ -8,9 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // 클라이언트에게 DTO를 받고, Service를 호출한 뒤 결과를 응답해.
 @Slf4j
@@ -30,6 +33,14 @@ public class PizzaApiController {
     }
 
     // 리스트 조회
+    @GetMapping("/api/pizza")
+    public ResponseEntity<List<PizzaDto>> pizzaList(){
+        // service에 위임
+        List<PizzaDto> dtos = pizzaService.getList();
+        // 결과 응답
+        return ResponseEntity.status(HttpStatus.OK).body(dtos);
+
+    }
 
     // 상세 조회
 

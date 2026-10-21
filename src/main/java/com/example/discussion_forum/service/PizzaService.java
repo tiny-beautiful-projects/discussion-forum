@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PizzaService {
@@ -21,5 +23,15 @@ public class PizzaService {
         // 4. dto 형태로 return
         return PizzaDto.toDto(created);
     };
+
+
+    public List<PizzaDto> getList() {
+        // db에서 가져오기 (entity)
+        List<Pizza> pizzas = pizzaRepository.findAll();
+        // entity를 dto 형태로 return
+        // return pizzas.stream().map(PizzaDto:: toDto).toList();
+        return pizzas.stream().map(pizza -> PizzaDto.toDto(pizza)).toList();
+    }
+
 
 }
