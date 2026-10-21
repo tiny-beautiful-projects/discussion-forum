@@ -1,72 +1,158 @@
-<div id="comments-list"  style="width: 18rem;">
+```html
+<div id="comments-list" style="width: 18rem;">
     {{#commentDtos}}
-        <div class="card m-2" id="comments={{id}}">
+        <div class="card m-2" id="comments-{{id}}">
             <div class="card-header">
                 {{nickname}}
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#comment-edit-modal"
-                data-bs-id="{{id}}" data-bs-nickname="{{nickname}}" data-bs-body="{{body}}" data-bs-article-id="{{articleId}}"
+                <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#comment-edit-modal"
+                        data-bs-id="{{id}}"
+                        data-bs-nickname="{{nickname}}"
+                        data-bs-body="{{body}}"
+                        data-bs-article-id="{{articleId}}"
                 >
                     수정
                 </button>
             </div>
+
             <div class="card-body">
                 {{body}}
             </div>
         </div>
     {{/commentDtos}}
 </div>
-<!-- Modal -->
-<div class="modal fade" id="comment-edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- 댓글 수정 모달 -->
+<div
+        class="modal fade"
+        id="comment-edit-modal"
+        tabindex="-1"
+        aria-labelledby="comment-edit-modal-title"
+        aria-hidden="true"
+>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">댓글 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-             <!--    댓글 수정 폼-->
-                <form>
-                    <div class="mb-3">
-                        <label class="form-label">닉네임</label>
-                        <input type="text" class="form-control" id="edit-comment-nickname">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">댓글 내용</label>
-                        <textarea type="text" class="form-control" rows="3" id="edit-comment-body"></textarea>
-                    </div>
-                    {{#article}}
-                        <input type="hidden" id="edit-comment-article-id" value="{{id}}">
-                    {{/article}}
-                    <button type="button" class="btn btn-primary" id="comment-update-btn">댓글 수정</button>
-                </form>
+                <h5 class="modal-title" id="comment-edit-modal-title">
+                    댓글 수정
+                </h5>
+
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
             </div>
 
+            <div class="modal-body">
+                <!-- 댓글 수정 폼 -->
+                <form id="comment-edit-form">
+                    <input type="hidden" id="edit-comment-id">
+                    <input type="hidden" id="edit-comment-article-id">
+                    <div class="mb-3">
+                        <label
+                                for="edit-comment-nickname"
+                                class="form-label"
+                        >
+                            닉네임
+                        </label>
+
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="edit-comment-nickname"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label
+                                for="edit-comment-body"
+                                class="form-label"
+                        >
+                            댓글 내용
+                        </label>
+
+                        <textarea
+                                class="form-control"
+                                rows="3"
+                                id="edit-comment-body"
+                        ></textarea>
+                    </div>
+
+                    <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="comment-update-btn"
+                    >
+                        댓글 수정
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     // 모달 요소 선택
-    const commentEditModal = document.querySelector("#comment-edit-modal");
-    // 모달 이벤트 감지
-    commentEditModal.addEventListener("show.bs.modal", function(event){
-        // 트리거 버튼
-        const triggerBtn = event.relatedTarget;
-        // 데이터 가져오기
-        const id = triggerBtn.getAttribute("data-bs-id");
-        const nickname = triggerBtn.getAttribute("data-bs-nickname");
-        const body = triggerBtn.getAttribute("data-bs-body");
-        const articleId = triggerBtn.getAttribute("data-bs-article-id");
+    const commentEditModal = document.querySelector("#comment-edit-modal")
+
+    // 수정 버튼 클릭 후 모달이 열릴 때 실행
+    commentEditModal.addEventListener("show.bs.modal", function (event) {
+        // 모달을 연 수정 버튼
+        const triggerBtn = event.relatedTarget
+
+        // 버튼의 data 속성에서 댓글 데이터 가져오기
+        const id = triggerBtn.getAttribute("data-bs-id")
+        const nickname = triggerBtn.getAttribute("data-bs-nickname")
+        const body = triggerBtn.getAttribute("data-bs-body")
+        const articleId = triggerBtn.getAttribute("data-bs-article-id")
+
         // 수정 폼에 데이터 반영
-        document.querySelector("#edit-comment-id").value = id;
-        document.querySelector("#edit-comment-nickname").value = nickname;
-        document.querySelector("#edit-comment-body").value = body;
+        document.querySelector("#edit-comment-id").value = id
+        document.querySelector("#edit-comment-nickname").value = nickname
+        document.querySelector("#edit-comment-body").value = body
         document.querySelector("#edit-comment-article-id").value = articleId
-
-
-
     })
 
+    // 댓글 수정 버튼
+    const commentUpdatedBtn = document.querySelector("#comment-update-btn")
 
+    commentUpdatedBtn.addEventListener("click", async function () {
+        // 수정 폼 데이터 가져오기
+        const comment = {
+            id: document.querySelector("#edit-comment-id").value,
+            nickname: document.querySelector("#edit-comment-nickname").value,
+            body: document.querySelector("#edit-comment-body").value,
+            articleId: document.querySelector("#edit-comment-article-id").value
+        }
+
+        const url = "/api/comments/" + comment.id
+
+        try {
+            const response = await fetch(url, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(comment)
+            })
+
+            if (!response.ok) {
+                throw new Error("댓글 수정 실패: " + response.status)
+            }
+
+            alert("댓글이 수정되었습니다.")
+
+            // 수정 성공 후 페이지 새로고침
+            window.location.reload()
+        } catch (error) {
+            console.error("댓글 수정 오류:", error)
+            alert("댓글 수정에 실패했습니다.")
+        }
+    })
 </script>
+```
