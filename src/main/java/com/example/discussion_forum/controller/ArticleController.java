@@ -4,8 +4,10 @@ package com.example.discussion_forum.controller;
 
 
 import com.example.discussion_forum.dto.ArticleForm;
+import com.example.discussion_forum.dto.CommentDto;
 import com.example.discussion_forum.entity.Article;
 import com.example.discussion_forum.repository.ArticleRepository;
+import com.example.discussion_forum.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,8 @@ public class ArticleController {
      */
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 사용자가 브라우저 주소창에 /articles/new 경로로 접속(GET 요청)했을 때, 글을 작성할 수 있는 입력 폼 페이지(articles/new 뷰)를 보여줍니다.
@@ -75,17 +79,13 @@ public class ArticleController {
     // @PathVariabl: URL 경로(Path)에 포함된 변수 값을 메서드의 매개변수로 받아올 때 사용하는 어노테이션
     public String show(@PathVariable Long id, Model model){
         log.info("articles id = " + id);
-        // 1. id를 조회해 데이터 가져오기
-        /**
-         * DB에서 데이터를 가져오는 주체는 repository.
-         * Entity를 반환
-         */
+        // id를 조회해 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
-        // 2. 모델에 데이터 등록하기'
-        /**
-         * articleEntity  에 담긴 데이터를 모델에 등록하기. 이유는 뷰페이지에서 사용하기 위함.
-         */
+        // id에 해당하는 댓글 가져오기
+        List<CommentDto> commentsDtos = commentService.comments(id);
+        // 모델에 데이터 등록하기'
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDtos", commentsDtos);
         // 3. 뷰 페이지 반환하기
         return "articles/show";
     }
