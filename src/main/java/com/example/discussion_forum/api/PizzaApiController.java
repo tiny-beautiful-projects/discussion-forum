@@ -45,10 +45,21 @@ public class PizzaApiController {
         PizzaDto dto = pizzaService.getDetail(id);
         // 결과 응답
         return ResponseEntity.status(HttpStatus.OK).body(dto);
-
     }
 
     // 수정
+    @PatchMapping("/api/pizza/{id}")
+    public ResponseEntity<PizzaDto> editPizza(@PathVariable Long id, @RequestBody PizzaDto dto){
+        log.info("수정 요청 도착! id = {}", id);
+        log.info("전달받은 DTO = {}", dto);
+        try{
+            PizzaDto edited = pizzaService.editPizza(id, dto);
+            return ResponseEntity.status(HttpStatus.OK).body(edited);
+        }catch(IllegalArgumentException e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 
     // 삭제
 

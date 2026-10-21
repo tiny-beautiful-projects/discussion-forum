@@ -1,6 +1,7 @@
 package com.example.discussion_forum.entity;
 
 
+import com.example.discussion_forum.dto.PizzaDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,4 +25,13 @@ public class Pizza {
     @Column
     private Integer price;
 
+    public void patch(PizzaDto dto) {
+        if(dto.getName() != null){
+            this.name = dto.getName();
+        }
+        if(dto.getPrice() != null){
+            this.price = dto.getPrice();
+        }
+
+    }
 }

@@ -40,4 +40,18 @@ public class PizzaService {
         // entity를 dto 형태로 return
         return PizzaDto.toDto(target);
     }
+
+    public PizzaDto editPizza(Long id, PizzaDto dto) {
+        // id와 dto id 비교를 한다. 같지 않으면 에러!
+        if(id != dto.getId()) {
+            throw new IllegalArgumentException("잘못된 요청입니다. ID가 일치하지 않습니다.");
+        }
+        Pizza pizza = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 피자를 찾을 수 없습니다."));
+        // dto 를 타켓 데이터(entity)에 업데이트 한다.
+        pizza.patch(dto);
+        // 타켓 데이터(entity) 를 save하자.
+        Pizza saved = pizzaRepository.save(pizza);
+        log.info("저장된 피자!! ++" + saved);
+        return PizzaDto.toDto(saved);
+    }
 }
