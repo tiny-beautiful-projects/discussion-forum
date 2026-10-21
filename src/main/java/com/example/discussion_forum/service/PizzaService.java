@@ -34,4 +34,10 @@ public class PizzaService {
     }
 
 
+    public PizzaDto getDetail(Long id) {
+        // db에서 가져오기 없으면 에러를 내기
+        Pizza target = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 피자를 찾을 수 없습니다."));
+        // entity를 dto 형태로 return
+        return PizzaDto.toDto(target);
+    }
 }

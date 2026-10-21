@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,8 +38,15 @@ public class PizzaApiController {
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
 
     }
-
     // 상세 조회
+    @GetMapping("/api/pizza/{id}")
+    public ResponseEntity<PizzaDto> detailPizza(@PathVariable Long id){
+        // 서비스에 위침
+        PizzaDto dto = pizzaService.getDetail(id);
+        // 결과 응답
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+
+    }
 
     // 수정
 
